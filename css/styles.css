@@ -33,9 +33,26 @@
   /* Hero */
   .hero{
     text-align: center;
-    padding-top: 6px;
+    padding-top: 132px;
     color: #fff;           /* puedes cambiar luego */
   }
+  /* Contenedor relativo para alinear corona y texto */
+.pretitle-wrap{
+  position: relative;
+  display: inline-block;      /* se centra con el texto */
+}
+
+/* Corona centrada y encima del texto */
+.crown{
+  position: absolute;
+  left: 50%;
+  bottom: 100%;               /* coloca la base de la corona en el borde superior del wrap */
+  transform: translate(-50%, -6px); /* ajusta separación (- = más arriba, + = más abajo) */
+  width: clamp(180px, 42vw, 320px);  /* responsivo */
+  height: auto;
+  pointer-events: none;       /* no bloquea toques */
+}
+
   .pretitle{
     margin: 0 0 6px 0;
     opacity: .95;
@@ -72,6 +89,7 @@
     font-size: clamp(28px, 6vw, 44px);
     letter-spacing: .3px;
     color: #ff009d; 
+    /* text-shadow: 0 0 10px rgb(255, 0, 157, 0.25); */
   }
   
   /* Countdown */
