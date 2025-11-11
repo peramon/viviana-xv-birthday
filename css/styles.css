@@ -5,13 +5,15 @@
   /* color de botones (puedes cambiar luego) */
   --accent-2: #ffffff;
   /* texto de botón */
-  --panel: rgba(255, 255, 255, 0.06);
+  /* --panel: rgba(255, 255, 255, 0.06); */
   --radius: 16px;
   --maxw: 420px;
   /* ancho móvil cómodo */
   /* --giftW: clamp(40px, 14vw, 64px); */
-  --giftW: clamp(30px, 9vw, 42px);
-  --giftInset: 18px;
+  --giftW: clamp(26px, 8vw, 38px);
+  --giftInset: 14px;
+  --underline: rgba(255,255,255,.55);   /* color de la línea - fecha*/
+  --giftLift: -3px; 
 }
 
 * {
@@ -37,7 +39,7 @@ body {
   min-height: 100dvh;
   max-width: var(--maxw);
   margin: 0 auto;
-  padding: 18px 16px 36px;
+  padding: 10px 12px 8px;
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -49,13 +51,6 @@ body {
   padding-top: 132px;
   color: #fff;
   /* puedes cambiar luego */
-}
-
-/* Contenedor relativo para alinear corona y texto */
-.pretitle-wrap {
-  position: relative;
-  display: inline-block;
-  /* se centra con el texto */
 }
 
 /* Corona centrada y encima del texto */
@@ -73,6 +68,7 @@ body {
   /* no bloquea toques */
 }
 
+/* PRETITLE */
 .pretitle {
   margin: 0 0 6px 0;
   opacity: .95;
@@ -85,6 +81,19 @@ body {
   /* base */
   font-size: clamp(20px, 4vw, 28px);
   /* tamaño base de 'Mis' y 'años' */
+}
+
+/* Contenedor relativo para alinear corona y texto */
+.pretitle-wrap {
+  position: relative;
+  display: inline-block;
+  /* se centra con el texto */
+}
+
+/* Baja el “15” ligeramente respecto a “Mis … años” */
+.pretitle .num{
+  display: inline-block;   /* permite transformar sin afectar línea */
+  transform: translateY(0.18em); /* ↓ prueba 0.15–0.28em según tu gusto */
 }
 
 /* “Mis” y “años” → Shelley Script */
@@ -120,7 +129,7 @@ body {
 .countdown-embed {
   position: relative;
   /* <- necesario para posicionar la curita */
-  background: var(--panel);
+  background: transparent;
   border-radius: var(--radius);
   /* padding: 8px calc(var(--giftW) + 16px); */
   padding: 8px;
@@ -131,11 +140,11 @@ body {
   display: block;
   width: 100%;
   height: 100px;
-  margin: 0 auto;
+  margin: 0 0 12px 0;
   /* centrado dentro del hueco */
   border: 0;
   border-radius: 10px;
-  background: #ffffff;
+  /* background: #ffffff; */
 }
 
 /* Mascara para ocultar el icono "T" del borde superior derecho */
@@ -171,7 +180,7 @@ body {
 .gift {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(calc(-50% - var(--giftLift)));
   width: var(--giftW);
   /* tus íconos son de 64px; se adaptan en móvil */
   height: auto;
@@ -189,37 +198,69 @@ body {
 /* pon 6–12 si los quieres más adentro */
 .gift-right {
   right: var(--giftInset);
-  transform: translateY(-50%) scaleX(-1);
+  transform: translateY(calc(-50% - var(--giftLift))) scaleX(-1);
 }
 
 /* espejado */
 
 /* Texto */
 .message,
-.date,
 .details,
 .rsvp {
   text-align: center;
 }
 
-/* Fecha (tres badges) */
+/*  FECHA */
 .date-row {
   display: flex;
   justify-content: center;
   gap: 10px;
 }
 
-.badge {
-  display: inline-block;
-  padding: 8px 14px;
-  border: 1.5px solid rgba(255, 255, 255, .45);
-  border-radius: 999px;
+.date-style{
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: clamp(14px, 4.5vw, 32px);
 }
 
-.badge.number {
-  min-width: 64px;
-  text-align: center;
+.date-text{
+  position: relative;
+  padding-inline: 4px;
+  line-height: 1.1;
 }
+
+/* línea superior */
+.date-text::before{
+  content: "";
+  position: absolute;
+  left: -6px; right: -6px;
+  top: -10px;                     /* separada arriba */
+  height: 2px;
+  background: var(--underline);
+  border-radius: 2px;
+}
+
+/* Subrayado solo bajo Sábado / Diciembre */
+.date-text::after{
+  content: "";
+  position: absolute;
+  left: -6px; right: -6px;        /* un poquito más larga que el texto */
+  bottom: -6px;
+  height: 2px;
+  background: var(--underline);
+  border-radius: 2px;
+}
+
+/* número central “13” más grande y un pelín más abajo */
+.date-number{
+  font-weight: 800;
+  font-size: clamp(38px, 10vw, 58px);  /* ↑ tamaño */
+  line-height: 1;
+  transform: translateY(0.14em);      /* ↓ baja un poquito como el “15” */
+  letter-spacing: .02em;
+}
+
 
 /* Botones */
 .btn {
