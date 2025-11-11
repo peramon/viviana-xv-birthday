@@ -1,181 +1,269 @@
-:root{
-    --bg: #25133d;
-    --text: #ffffff;
-    --accent: #ff6fb0;      /* color de botones (puedes cambiar luego) */
-    --accent-2: #ffffff;    /* texto de botón */
-    --panel: rgba(255,255,255,0.06);
-    --radius: 16px;
-    --maxw: 420px;          /* ancho móvil cómodo */
-  }
-  
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--text);
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
-  }
-  
-  /* Layout */
-  .page{
-    min-height:100dvh;
-    max-width:var(--maxw);
-    margin:0 auto;
-    padding:18px 16px 36px;
-    display:flex;
-    flex-direction:column;
-    gap:18px;
-  }
-  
-  /* Hero */
-  .hero{
-    text-align: center;
-    padding-top: 132px;
-    color: #fff;           /* puedes cambiar luego */
-  }
-  /* Contenedor relativo para alinear corona y texto */
-.pretitle-wrap{
+:root {
+  --bg: #25133d;
+  --text: #ffffff;
+  --accent: #ff6fb0;
+  /* color de botones (puedes cambiar luego) */
+  --accent-2: #ffffff;
+  /* texto de botón */
+  --panel: rgba(255, 255, 255, 0.06);
+  --radius: 16px;
+  --maxw: 420px;
+  /* ancho móvil cómodo */
+  /* --giftW: clamp(40px, 14vw, 64px); */
+  --giftW: clamp(30px, 9vw, 42px);
+  --giftInset: 18px;
+}
+
+* {
+  box-sizing: border-box
+}
+
+html,
+body {
+  height: 100%
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+}
+
+/* Layout */
+.page {
+  min-height: 100dvh;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 18px 16px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding-top: 132px;
+  color: #fff;
+  /* puedes cambiar luego */
+}
+
+/* Contenedor relativo para alinear corona y texto */
+.pretitle-wrap {
   position: relative;
-  display: inline-block;      /* se centra con el texto */
+  display: inline-block;
+  /* se centra con el texto */
 }
 
 /* Corona centrada y encima del texto */
-.crown{
+.crown {
   position: absolute;
   left: 50%;
-  bottom: 100%;               /* coloca la base de la corona en el borde superior del wrap */
-  transform: translate(-50%, -6px); /* ajusta separación (- = más arriba, + = más abajo) */
-  width: clamp(180px, 42vw, 320px);  /* responsivo */
+  bottom: 100%;
+  /* coloca la base de la corona en el borde superior del wrap */
+  transform: translate(-50%, -6px);
+  /* ajusta separación (- = más arriba, + = más abajo) */
+  width: clamp(180px, 42vw, 320px);
+  /* responsivo */
   height: auto;
-  pointer-events: none;       /* no bloquea toques */
+  pointer-events: none;
+  /* no bloquea toques */
 }
 
-  .pretitle{
-    margin: 0 0 6px 0;
-    opacity: .95;
-    display: inline-flex;
-    align-items: baseline;
-    gap: .35em;
-    white-space: nowrap;           /* fuerza una sola línea */
-    line-height: 1;                /* base */
-    font-size: clamp(18px, 4vw, 28px);  /* tamaño base de 'Mis' y 'años' */
-  }
+.pretitle {
+  margin: 0 0 6px 0;
+  opacity: .95;
+  display: inline-flex;
+  align-items: baseline;
+  gap: .35em;
+  white-space: nowrap;
+  /* fuerza una sola línea */
+  line-height: 1;
+  /* base */
+  font-size: clamp(20px, 4vw, 28px);
+  /* tamaño base de 'Mis' y 'años' */
+}
 
-  /* “Mis” y “años” → Shelley Script */
+/* “Mis” y “años” → Shelley Script */
 .pretitle .mis,
-.pretitle .anios{
+.pretitle .anios {
   font-family: "Great Vibes", cursive;
   color: #f9bbcd;
 }
 
 /* “15” → Manison, al doble del tamaño base */
-.pretitle .num{
+.pretitle .num {
   font-family: "Bodoni Moda", serif;
-  font-weight: 700;
-  font-size: 2em;                /* ≈ el doble del .pretitle */
+  font-weight: 800;
+  font-size: 2em;
+  /* ≈ el doble del .pretitle */
   line-height: .9;
   letter-spacing: .02em;
-  color: #ff72b5; 
+  color: #ff72b5;
 }
 
 /* Nombre → LeoHand */
-.title{
-    margin: 0;
-    line-height: 1.15;
-    font-family: "Patrick Hand", cursive;
-    font-size: clamp(28px, 6vw, 44px);
-    letter-spacing: .3px;
-    color: #ff009d; 
-    /* text-shadow: 0 0 10px rgb(255, 0, 157, 0.25); */
+.title {
+  margin: 0;
+  line-height: 1.15;
+  font-family: "Patrick Hand", cursive;
+  font-size: clamp(30px, 6vw, 40px);
+  letter-spacing: 0.3px;
+  color: #ff009d;
+  /* text-shadow: 0 0 10px rgb(255, 0, 157, 0.25); */
+}
+
+/* Countdown */
+.countdown-embed {
+  position: relative;
+  /* <- necesario para posicionar la curita */
+  background: var(--panel);
+  border-radius: var(--radius);
+  /* padding: 8px calc(var(--giftW) + 16px); */
+  padding: 8px;
+}
+
+/* Iframe que inyecta TickCounter */
+.countdown-embed iframe {
+  display: block;
+  width: 100%;
+  height: 100px;
+  margin: 0 auto;
+  /* centrado dentro del hueco */
+  border: 0;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+/* Mascara para ocultar el icono "T" del borde superior derecho */
+.countdown-embed::after {
+  content: "";
+  position: relative;
+  /* ajusta estos valores si el icono se mueve con otro alto */
+  top: 10px;
+  /* distancia desde arriba del contenedor .countdown-embed */
+  right: 12px;
+  /* distancia desde la derecha */
+  width: 30px;
+  /* ancho de la curita */
+  height: 24px;
+  /* alto de la curita */
+  background: #ffffff;
+  /* mismo fondo que el widget */
+  border-radius: 6px;
+  /* bordes suaves como el widget */
+  pointer-events: none;
+  box-shadow: 0 0 0 2px #ffffff;
+  /* refuerzo por si hay halo */
+}
+
+.countdown-core {
+  position: relative;
+  padding-inline: calc(var(--giftW) + var(--giftInset) + 8px);
+  padding-block: 8px;
+}
+
+
+/* Regalos laterales */
+.gift {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--giftW);
+  /* tus íconos son de 64px; se adaptan en móvil */
+  height: auto;
+  pointer-events: none;
+  /* no bloquean toques del iframe */
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .25));
+  /* opcional para resaltar */
+}
+
+/* Ajusta la separación respecto al borde del contenedor */
+.gift-left {
+  left: var(--giftInset);
+}
+
+/* pon 6–12 si los quieres más adentro */
+.gift-right {
+  right: var(--giftInset);
+  transform: translateY(-50%) scaleX(-1);
+}
+
+/* espejado */
+
+/* Texto */
+.message,
+.date,
+.details,
+.rsvp {
+  text-align: center;
+}
+
+/* Fecha (tres badges) */
+.date-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 8px 14px;
+  border: 1.5px solid rgba(255, 255, 255, .45);
+  border-radius: 999px;
+}
+
+.badge.number {
+  min-width: 64px;
+  text-align: center;
+}
+
+/* Botones */
+.btn {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-2);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: .3px;
+}
+
+.btn:active {
+  transform: translateY(1px)
+}
+
+.btn-confirm {
+  background: #ff4fa0
+}
+
+/* Espaciados finos */
+.message p,
+.details p,
+.rsvp p {
+  margin: 8px 0;
+}
+
+/* Responsivo pequeño */
+
+@media (min-width: 380px) {
+  .countdown-embed iframe {
+    height: 128px;
   }
-  
-  /* Countdown */
-  .countdown-embed{
-    position: relative;          /* <- necesario para posicionar la curita */
-    background: var(--panel);
-    border-radius: var(--radius);
-    padding: 8px;
+
+  .countdown-core iframe {
+    height: 128px;
   }
-  
-  /* Iframe que inyecta TickCounter */
-  .countdown-embed iframe{
-    width: 100%;
-    height: 110px;
-    border: 0;
-    border-radius: 10px;
-    background: #ffffff;
+
+  .countdown-embed::after {
+    top: 10px;
+    right: calc(var(--giftW) + 12px);
+    width: 30px;
+    height: 24px;
   }
-  
-  /* Mascara para ocultar el icono "T" del borde superior derecho */
-  .countdown-embed::after{
-    content: "";
-    position: absolute;
-    /* ajusta estos valores si el icono se mueve con otro alto */
-    top: 12px;          /* distancia desde arriba del contenedor .countdown-embed */
-    right: 14px;        /* distancia desde la derecha */
-    width: 28px;        /* ancho de la curita */
-    height: 28px;       /* alto de la curita */
-    background: #ffffff; /* mismo fondo que el widget */
-    border-radius: 6px; /* bordes suaves como el widget */
-    pointer-events: none;
-    box-shadow: 0 0 0 2px #ffffff; /* refuerzo por si hay halo */
-  }
-  
-  /* Texto */
-  .message, .date, .details, .rsvp{
-    text-align:center;
-  }
-  
-  /* Fecha (tres badges) */
-  .date-row{
-    display:flex;
-    justify-content:center;
-    gap:10px;
-  }
-  .badge{
-    display:inline-block;
-    padding:8px 14px;
-    border:1.5px solid rgba(255,255,255,.45);
-    border-radius:999px;
-  }
-  .badge.number{
-    min-width:64px;
-    text-align:center;
-  }
-  
-  /* Botones */
-  .btn{
-    display:inline-block;
-    margin-top:14px;
-    padding:12px 18px;
-    border-radius:999px;
-    background:var(--accent);
-    color:var(--accent-2);
-    text-decoration:none;
-    font-weight:700;
-    letter-spacing:.3px;
-  }
-  .btn:active{transform:translateY(1px)}
-  .btn-confirm{background:#ff4fa0}
-  
-  /* Espaciados finos */
-  .message p,
-  .details p,
-  .rsvp p{
-    margin:8px 0;
-  }
-  
-  /* Responsivo pequeño */
-  @media (min-width:380px){
-    .countdown-embed iframe{ height: 128px; }
-    .countdown-embed::after{
-      top:  10px;
-      right: 12px;
-      width: 30px;
-      height: 24px;
-    }
-  }
-  
+}
