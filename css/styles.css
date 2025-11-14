@@ -1,28 +1,36 @@
+/* =========================================
+   0) Variables y reset base
+========================================= */
 :root {
   --bg: #25133d;
   --text: #ffffff;
+
   --accent: #ff6fb0;
-  /* color de botones (puedes cambiar luego) */
+  /* fondo de botones primarios */
   --accent-2: #ffffff;
-  /* texto de botón */
-  /* --panel: rgba(255, 255, 255, 0.06); */
+  /* texto de botones */
+
   --radius: 16px;
   --maxw: 420px;
-  /* ancho móvil cómodo */
-  /* --giftW: clamp(40px, 14vw, 64px); */
+  /* ancho máximo del layout móvil */
+
+  /* Countdown (regalos) */
   --giftW: clamp(26px, 8vw, 38px);
   --giftInset: 14px;
-  --underline: rgba(255,255,255,.55);   /* color de la línea - fecha*/
-  --giftLift: -3px; 
+  /* separación lateral del regalo */
+  --giftLift: -3px;
+  /* “subida” vertical del regalo */
+  --underline: rgba(255, 255, 255, .55);
+  /* líneas de la fecha */
 }
 
 * {
-  box-sizing: border-box
+  box-sizing: border-box;
 }
 
 html,
 body {
-  height: 100%
+  height: 100%;
 }
 
 body {
@@ -34,7 +42,9 @@ body {
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
 }
 
-/* Layout */
+/* =========================================
+   1) Layout principal
+========================================= */
 .page {
   min-height: 100dvh;
   max-width: var(--maxw);
@@ -45,30 +55,32 @@ body {
   gap: 18px;
 }
 
-/* Hero */
+/* =========================================
+   2) Encabezado (Hero)
+   - Corona + “Mis 15 años” + Nombre
+========================================= */
 .hero {
   text-align: center;
   padding-top: 132px;
-  color: #fff;
-  /* puedes cambiar luego */
 }
 
-/* Corona centrada y encima del texto */
+.pretitle-wrap {
+  /* contenedor para alinear corona y texto */
+  position: relative;
+  display: inline-block;
+}
+
 .crown {
+  /* corona centrada sobre el pretitle */
   position: absolute;
   left: 50%;
   bottom: 100%;
-  /* coloca la base de la corona en el borde superior del wrap */
   transform: translate(-50%, -6px);
-  /* ajusta separación (- = más arriba, + = más abajo) */
   width: clamp(180px, 42vw, 320px);
-  /* responsivo */
   height: auto;
   pointer-events: none;
-  /* no bloquea toques */
 }
 
-/* PRETITLE */
 .pretitle {
   margin: 0 0 6px 0;
   opacity: .95;
@@ -76,228 +88,328 @@ body {
   align-items: baseline;
   gap: .35em;
   white-space: nowrap;
-  /* fuerza una sola línea */
   line-height: 1;
-  /* base */
   font-size: clamp(20px, 4vw, 28px);
-  /* tamaño base de 'Mis' y 'años' */
 }
 
-/* Contenedor relativo para alinear corona y texto */
-.pretitle-wrap {
-  position: relative;
-  display: inline-block;
-  /* se centra con el texto */
-}
 
-/* Baja el “15” ligeramente respecto a “Mis … años” */
-.pretitle .num{
-  display: inline-block;   /* permite transformar sin afectar línea */
-  transform: translateY(0.18em); /* ↓ prueba 0.15–0.28em según tu gusto */
-}
 
-/* “Mis” y “años” → Shelley Script */
+
+/* tipografías simuladas (equivalentes de Google) */
 .pretitle .mis,
 .pretitle .anios {
   font-family: "Great Vibes", cursive;
+  /* Shelley-like */
   color: #f9bbcd;
 }
 
-/* “15” → Manison, al doble del tamaño base */
 .pretitle .num {
   font-family: "Bodoni Moda", serif;
+  /* Manison-like */
   font-weight: 800;
   font-size: 2em;
-  /* ≈ el doble del .pretitle */
+  /* ~doble que el resto */
   line-height: .9;
   letter-spacing: .02em;
   color: #ff72b5;
+  display: inline-block;
+  transform: translateY(0.18em);
+  /* baja el “15” un poco */
 }
 
-/* Nombre → LeoHand */
 .title {
+  /* nombre (LeoHand-like) */
   margin: 0;
   line-height: 1.15;
+  transform: translateY(18px);  
   font-family: "Patrick Hand", cursive;
   font-size: clamp(30px, 6vw, 40px);
-  letter-spacing: 0.3px;
+  letter-spacing: .3px;
   color: #ff009d;
-  /* text-shadow: 0 0 10px rgb(255, 0, 157, 0.25); */
 }
 
-/* Countdown */
+/* =========================================
+   3) Countdown (embebido) + Regalos laterales
+========================================= */
 .countdown-embed {
   position: relative;
-  /* <- necesario para posicionar la curita */
   background: transparent;
   border-radius: var(--radius);
-  /* padding: 8px calc(var(--giftW) + 16px); */
   padding: 8px;
 }
 
-/* Iframe que inyecta TickCounter */
+/* iframe insertado por TickCounter */
 .countdown-embed iframe {
   display: block;
   width: 100%;
   height: 100px;
   margin: 0 0 12px 0;
-  /* centrado dentro del hueco */
   border: 0;
   border-radius: 10px;
-  /* background: #ffffff; */
 }
 
-/* Mascara para ocultar el icono "T" del borde superior derecho */
+/* Máscara para ocultar el icono “T” superior derecho del widget */
 .countdown-embed::after {
   content: "";
   position: relative;
-  /* ajusta estos valores si el icono se mueve con otro alto */
   top: 10px;
-  /* distancia desde arriba del contenedor .countdown-embed */
   right: 12px;
-  /* distancia desde la derecha */
   width: 30px;
-  /* ancho de la curita */
   height: 24px;
-  /* alto de la curita */
   background: #ffffff;
-  /* mismo fondo que el widget */
   border-radius: 6px;
-  /* bordes suaves como el widget */
   pointer-events: none;
   box-shadow: 0 0 0 2px #ffffff;
-  /* refuerzo por si hay halo */
 }
 
+/* padding lateral para dejar espacio a los regalos */
 .countdown-core {
   position: relative;
   padding-inline: calc(var(--giftW) + var(--giftInset) + 8px);
   padding-block: 8px;
 }
 
-
-/* Regalos laterales */
+/* Regalos izquierda/derecha */
 .gift {
   position: absolute;
   top: 50%;
   transform: translateY(calc(-50% - var(--giftLift)));
   width: var(--giftW);
-  /* tus íconos son de 64px; se adaptan en móvil */
   height: auto;
   pointer-events: none;
-  /* no bloquean toques del iframe */
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .25));
-  /* opcional para resaltar */
 }
 
-/* Ajusta la separación respecto al borde del contenedor */
 .gift-left {
   left: var(--giftInset);
 }
 
-/* pon 6–12 si los quieres más adentro */
 .gift-right {
   right: var(--giftInset);
   transform: translateY(calc(-50% - var(--giftLift))) scaleX(-1);
 }
 
-/* espejado */
-
-/* Texto */
-.message,
-.details,
-.rsvp {
+/* =========================================
+   4) Mensaje principal
+========================================= */
+.message {
   text-align: center;
 }
 
-/*  FECHA */
+.message p {
+  margin: 8px 0;
+}
+
+/* =========================================
+   5) Fecha (Sábado | 13 | Diciembre)
+========================================= */
+.date {
+  text-align: center;
+}
+
 .date-row {
   display: flex;
   justify-content: center;
-  gap: 10px;
-}
-
-.date-style{
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
   gap: clamp(14px, 4.5vw, 32px);
+  align-items: baseline;
 }
 
-.date-text{
+.date-text {
   position: relative;
   padding-inline: 4px;
   line-height: 1.1;
 }
 
-/* línea superior */
-.date-text::before{
+.date-text::before {
+  /* línea superior */
   content: "";
   position: absolute;
-  left: -6px; right: -6px;
-  top: -10px;                     /* separada arriba */
+  left: -6px;
+  right: -6px;
+  top: -10px;
   height: 2px;
-  background: var(--underline);
   border-radius: 2px;
+  background: var(--underline);
 }
 
-/* Subrayado solo bajo Sábado / Diciembre */
-.date-text::after{
+.date-text::after {
+  /* subrayado */
   content: "";
   position: absolute;
-  left: -6px; right: -6px;        /* un poquito más larga que el texto */
+  left: -6px;
+  right: -6px;
   bottom: -6px;
   height: 2px;
-  background: var(--underline);
   border-radius: 2px;
+  background: var(--underline);
 }
 
-/* número central “13” más grande y un pelín más abajo */
-.date-number{
-  font-weight: 800;
-  font-size: clamp(38px, 10vw, 58px);  /* ↑ tamaño */
+.date-number {
+  /* “13” al centro más grande y algo más bajo */
+  font-weight: 900;
+  font-size: clamp(38px, 10vw, 58px);
   line-height: 1;
-  transform: translateY(0.14em);      /* ↓ baja un poquito como el “15” */
   letter-spacing: .02em;
+  transform: translateY(0.14em);
 }
 
+/* =========================================
+   6) Detalles de la misa (hora y lugar)
+========================================= */
+.details {
+  margin: 2px 0 4px;
+  text-align: center;
+}
 
-/* Botones */
+.details p {
+  margin: 0;
+  line-height: 1.22;
+}
+
+/* =========================================
+   7) Llamadas a la acción (Ubicación / Confirmar)
+========================================= */
+.cta {
+  margin-top: 4px;
+}
+
+.cta-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(120px, 150px));
+  /* dos columnas iguales */
+  justify-content: center;
+  /* centra el grupo */
+  gap: 8px;
+  margin: 4px auto 0;
+}
+
+/* Botón base */
 .btn {
-  display: inline-block;
-  margin-top: 14px;
-  padding: 12px 18px;
+  display: flex;
+  /* centro perfecto del texto */
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 34px;
+  margin-top: 0;
+  padding: 8px 10px;
   border-radius: 999px;
   background: var(--accent);
   color: var(--accent-2);
   text-decoration: none;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: .3px;
+  border: 0;
+  cursor: pointer;
+  line-height: 1;
 }
 
-.btn:active {
-  transform: translateY(1px)
+.btn:disabled {
+  opacity: .55;
+  cursor: not-allowed;
 }
 
 .btn-confirm {
-  background: #ff4fa0
+  background: #ff4fa0;
+  font-weight: 800;
+  letter-spacing: .3px;
 }
 
-/* Espaciados finos */
-.message p,
-.details p,
-.rsvp p {
-  margin: 8px 0;
+/* Estado de RSVP (si lo usas) */
+.rsvp-state {
+  margin-top: 8px;
+  font-size: .95rem;
+  opacity: .9;
 }
 
-/* Responsivo pequeño */
+/* =========================================
+   8) Modal de Confirmación
+========================================= */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 40;
+}
 
+.modal.show {
+  display: block;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, .45);
+  backdrop-filter: saturate(1.2) blur(2px);
+}
+
+.modal-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(92vw, 420px);
+  background: #2e1b4f;
+  color: #fff;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+  border: 1px solid rgba(255, 255, 255, .08);
+}
+
+.modal-card h3 {
+  margin: 4px 0 8px 0;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.btn.yes {
+  background: #3bd17b;
+  color: #0b1b13;
+}
+
+.btn.no {
+  background: #ff6b6b;
+}
+
+.modal-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: transparent;
+  border: 0;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* GIF del modal */
+.rsvp-gif {
+  display: block;
+  margin: 8px auto 10px;
+  width: clamp(90px, 25vw, 150px);
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .25);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Utilidades */
+.hidden {
+  display: none !important;
+}
+
+/* =========================================
+   9) Media queries
+========================================= */
 @media (min-width: 380px) {
   .countdown-embed iframe {
-    height: 128px;
-  }
-
-  .countdown-core iframe {
     height: 128px;
   }
 
@@ -306,5 +418,18 @@ body {
     right: calc(var(--giftW) + 12px);
     width: 30px;
     height: 24px;
+  }
+}
+
+@media (max-width: 360px) {
+  .cta-row {
+    grid-template-columns: repeat(2, minmax(110px, 135px));
+    gap: 6px;
+  }
+
+  .btn {
+    min-height: 32px;
+    padding: 7px 9px;
+    font-size: .88rem;
   }
 }
