@@ -1,6 +1,6 @@
 (() => {
   // ======= CONFIGURA AQUÍ =======
-  const PHONE_EC = "593995057004"; // tu número SIN '+'
+  const PHONE_EC = "593962130837"; // tu número SIN '+'
   // ==============================
 
   const token      = (new URLSearchParams(location.search).get("token") || "demo").trim();
