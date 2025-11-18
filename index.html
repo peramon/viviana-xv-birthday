@@ -12,6 +12,12 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Bodoni+Moda:wght@400;700&family=Patrick+Hand&display=swap"
         rel="stylesheet">
+    <!-- font name -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Festive&family=Mea+Culpa&family=Pinyon+Script&family=Story+Script&display=swap"
+        rel="stylesheet">
     <!-- js -->
     <script src="js/rsvp.js" defer></script>
 </head>
@@ -32,31 +38,33 @@
             <h1 class="title">Viviana Ramón Suquilanda</h1>
         </header>
 
-
         <!-- Contador (embebido) -->
         <section class="countdown" aria-label="Cuenta regresiva">
             <div class="countdown-embed">
                 <img src="assets/icons/gift3.png" alt="" class="gift gift-left" aria-hidden="true" />
 
-                <!-- NUEVO: wrapper con padding lateral -->
-                <!-- <div class="countdown-core">
-                    <script>(function (d, s, id) { var js, pjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//www.tickcounter.com/static/js/loader.js"; pjs.parentNode.insertBefore(js, pjs); }(document, "script", "tickcounter-sdk"));</script>
-                    <a data-type="countdown" data-id="8616169" class="tickcounter"
-                        style="display:block; left:0; width:90%; height:0; position:relative; padding-bottom:25%; margin:0 auto;"
-                        title="Vivis15thBirthday" href="//www.tickcounter.com/">Vivis15thBirthday</a>
-                </div> -->
                 <div class="countdown-core">
-                    <script>(function (d, s, id) { var js, pjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//www.tickcounter.com/static/js/loader.js"; pjs.parentNode.insertBefore(js, pjs); }(document, "script", "tickcounter-sdk"));</script>
-                    <a data-type="countdown" data-id="8649584" class="tickcounter"
+                    <script>
+                        (function (d, s, id) {
+                            var js, pjs = d.getElementsByTagName(s)[0];
+                            if (d.getElementById(id)) return;
+                            js = d.createElement(s);
+                            js.id = id;
+                            js.src = "//www.tickcounter.com/static/js/loader.js";
+                            pjs.parentNode.insertBefore(js, pjs);
+                        }(document, "script", "tickcounter-sdk"));
+                    </script>
+                    <a data-type="countdown" data-id="8677709" class="tickcounter"
                         style="display:block; left:0; width:100%; height:0; position:relative; padding-bottom:25%; margin:0 auto;"
                         title="Black Friday Sale" href="//www.tickcounter.com/">Black Friday Sale</a>
                 </div>
 
                 <img src="assets/icons/gift3.png" alt="" class="gift gift-right" aria-hidden="true" />
+
+                <!-- Overlay que bloquea cualquier click -->
+                <div class="countdown-hitblock" aria-hidden="true"></div>
             </div>
         </section>
-
-
 
         <!-- Mensaje -->
         <section class="message">
@@ -75,21 +83,23 @@
 
         <!-- Misa -->
         <section class="details">
-            <p><strong>Hora: 17:00</strong></p>
-            <p><strong>IGLESIA DEL BARRIO EL TAMBO</strong></p>
+            <p><strong>Misa — 17:00</strong></p>
+            <p><strong>Iglesia del barrio El Tambo</strong></p>
+            <hr class="details-sep">
 
-            <!-- <a class="btn" id="btnUbicacion" href="https://maps.app.goo.gl/V7Jnt2VpAsAXExp66" target="_blank"
-                rel="noopener" aria-label="Ver ubicación en Google Maps">
-                UBICACIÓN -->
-            </a>
+            <p><strong>Recepción — 19:00</strong></p>
+            <p><strong>Domicilio del Sr. Enrique Ramón</strong></p>
+
+
+
         </section>
 
         <section class="cta">
             <div class="cta-row">
                 <a class="btn btn-primary" href="https://maps.app.goo.gl/V7Jnt2VpAsAXExp66" target="_blank"
-                    rel="noopener">UBICACIÓN</a>
+                    rel="noopener">Ubicación</a>
 
-                <button class="btn btn-confirm" id="rsvpBtn">CONFIRMAR</button>
+                <button class="btn btn-confirm" id="rsvpBtn">Confirmar</button>
 
                 <!-- Estado (se rellena por JS) -->
             </div>
@@ -125,13 +135,29 @@
                 <p id="rsvpSubtitle">Elige una opción para enviar tu confirmación por WhatsApp.</p>
                 <div class="modal-actions">
                     <button class="btn yes" id="btnYes">Asistiré</button>
-                    <button class="btn no" id="btnNo">No podré ir</button>
+                    <button class="btn no" id="btnNo" aria-label="Indicar que no podrás asistir" title="No podré ir">
+                        No podré ir <span aria-hidden="true" class="sad">🙁</span>
+                    </button>
                 </div>
                 <button class="modal-close" id="rsvpClose" aria-label="Cerrar">✕</button>
             </div>
         </div>
+        <div id="mobileOnlyOverlay" aria-hidden="true">
+            <div class="overlay-card">
+                <h2>Abre esta invitación en tu celular 📱</h2>
+                <p>Para una mejor experiencia, visualízala en pantalla móvil.</p>
+            </div>
+        </div>
 
     </main>
+    <div id="rotateNotice" aria-hidden="true">
+        <div class="rn-card" role="alert" aria-live="polite">
+            <div class="rn-emoji" aria-hidden="true">📱↩️</div>
+            <h2>Gira tu teléfono</h2>
+            <p>Esta invitación está diseñada para verse en vertical.</p>
+        </div>
+    </div>
+
 </body>
 
 </html>

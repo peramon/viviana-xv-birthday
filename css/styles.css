@@ -34,7 +34,7 @@ body {
 }
 
 body {
-  margin: 0;
+  margin-top: 8px;
   background: var(--bg);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
@@ -81,6 +81,43 @@ body {
   pointer-events: none;
 }
 
+/* TEST styles */
+/* Corona meciéndose suave, sin cortes */
+.crown {
+  transform-origin: 50% 100%;
+  /* pivota en la base */
+  will-change: transform;
+  animation: crown-rock 3.8s ease-in-out infinite alternate;
+}
+
+/* de -8° a +8° y vuelve automáticamente por 'alternate' */
+@keyframes crown-rock {
+  from {
+    transform: translate(-50%, -6px) rotate(-8deg);
+  }
+
+  to {
+    transform: translate(-50%, -6px) rotate(8deg);
+  }
+}
+
+/* Opcional: mini “pausa” en los extremos para más naturalidad */
+/*
+@keyframes crown-rock{
+  0%,10%   { transform: translate(-50%, -6px) rotate(-8deg); }
+  50%      { transform: translate(-50%, -6px) rotate( 8deg); }
+  90%,100% { transform: translate(-50%, -6px) rotate(-8deg); }
+}
+*/
+
+/* Respeta usuarios que prefieren menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .crown {
+    animation: none !important;
+  }
+}
+
+
 .pretitle {
   margin: 0 0 6px 0;
   opacity: .95;
@@ -121,8 +158,10 @@ body {
   /* nombre (LeoHand-like) */
   margin: 0;
   line-height: 1.15;
-  transform: translateY(18px);  
-  font-family: "Patrick Hand", cursive;
+  transform: translateY(18px);
+    font-family: "Bonheur Royale", cursive;
+  font-weight: 1000;
+  font-style: normal;
   font-size: clamp(30px, 6vw, 40px);
   letter-spacing: .3px;
   color: #ff009d;
@@ -146,6 +185,29 @@ body {
   margin: 0 0 12px 0;
   border: 0;
   border-radius: 10px;
+  pointer-events: none !important;
+  /* evita clicks dentro del iframe */
+}
+
+/* A veces el <a.tickcounter> queda activo: lo anulamos y ocultamos su texto */
+.countdown-embed a.tickcounter {
+  pointer-events: none !important;
+  color: transparent !important;
+  text-decoration: none !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+}
+
+/* Overlay transparente que captura cualquier click */
+.countdown-hitblock {
+  position: absolute;
+  /* cubre el área útil del widget (ajusta si cambias padding/alto) */
+  inset: 8px;
+  border-radius: 10px;
+  z-index: 3;
+  background: transparent;
+  pointer-events: auto;
+  /* come los clicks */
 }
 
 /* Máscara para ocultar el icono “T” superior derecho del widget */
@@ -194,10 +256,14 @@ body {
 ========================================= */
 .message {
   text-align: center;
+  font-size: 1.1rem;
 }
 
 .message p {
   margin: 8px 0;
+    font-family: "Story Script", sans-serif;
+  font-weight: 00;
+  font-style: normal;
 }
 
 /* =========================================
@@ -259,11 +325,21 @@ body {
 .details {
   margin: 2px 0 4px;
   text-align: center;
+  font-size: 0.95rem;  
 }
 
 .details p {
   margin: 0;
   line-height: 1.22;
+}
+
+.details-sep {
+  width: 72%;
+  margin: 6px auto 8px;
+  height: 1px;
+  border: 0;
+  background: rgba(255, 255, 255, .18);
+  border-radius: 1px;
 }
 
 /* =========================================
@@ -302,6 +378,7 @@ body {
   border: 0;
   cursor: pointer;
   line-height: 1;
+  /* font-size: .95rem; */
 }
 
 .btn:disabled {
@@ -312,12 +389,21 @@ body {
 .btn-confirm {
   background: #ff4fa0;
   font-weight: 800;
-  letter-spacing: .3px;
+  font-size: 1rem;
+  /* ↑ más grande solo Confirmar */
+  letter-spacing: .35px;
+  line-height: 1;
 }
 
 /* Estado de RSVP (si lo usas) */
 .rsvp-state {
-  margin-top: 8px;
+  display: block;
+  margin-top: 12px;
+  /* ↓ espacio hacia abajo */
+  padding-left: 18px;
+  /* → empuja un poco hacia la derecha */
+  /* text-align: left; */
+  /* alinea el texto a la derecha */
   font-size: .95rem;
   opacity: .9;
 }
@@ -369,12 +455,16 @@ body {
 }
 
 .btn.yes {
-  background: #3bd17b;
-  color: #0b1b13;
+  background: #ff009d;
+  color: #ffffff;
 }
 
 .btn.no {
-  background: #ff6b6b;
+  background: #f56760;
+}
+
+.sad {
+  margin-left: 4px;
 }
 
 .modal-close {
@@ -433,3 +523,81 @@ body {
     font-size: .88rem;
   }
 }
+
+
+/* Overlay para bloquear en pantallas no móviles */
+#mobileOnlyOverlay{
+  display: none;                 /* oculto por defecto (móvil) */
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 12, 35, .92);
+  z-index: 9999;
+  color: #fff;
+}
+
+#mobileOnlyOverlay .overlay-card{
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(92vw, 520px);
+  background: #2e1b4f;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  padding: 18px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+
+#mobileOnlyOverlay h2{
+  margin: 0 0 8px;
+  font-size: 1.15rem;
+}
+
+/* Si NO es móvil (tableta/desktop ≥ 600px), muestro overlay */
+@media (min-width: 600px){
+  #mobileOnlyOverlay{ display: block; }
+  /* Opcional: desactivar scroll detrás */
+  html, body{ overflow: hidden; }
+}
+
+/* Overlay para forzar modo vertical en móviles/tablets */
+#rotateNotice{
+  display: none;                 /* oculto por defecto */
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #25133d;          /* mismo fondo del sitio */
+  color: #fff;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+}
+
+/* Tarjeta interna del aviso */
+#rotateNotice .rn-card{
+  max-width: 420px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 16px;
+  padding: 18px 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  background: rgba(46,27,79,.92);
+}
+
+#rotateNotice .rn-emoji{
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+/* Cuando esté en horizontal en un dispositivo táctil, mostramos el overlay
+   y bloqueamos interacción con el contenido */
+@media (pointer: coarse) and (orientation: landscape){
+  #rotateNotice{ display: flex; }
+  .page{
+    filter: blur(2px);
+    pointer-events: none;
+    user-select: none;
+  }
+}
+
+
